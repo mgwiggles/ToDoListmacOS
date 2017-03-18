@@ -13,6 +13,7 @@ class ViewController: NSViewController, NSTableViewDataSource, NSTableViewDelega
     @IBOutlet weak var textField: NSTextField!
     @IBOutlet weak var importantCheckBox: NSButton!
     @IBOutlet weak var tableView: NSTableView!
+    @IBOutlet weak var deleteButton: NSButton!
     
     var toDoItems : [ToDoItem] = []
     
@@ -20,7 +21,6 @@ class ViewController: NSViewController, NSTableViewDataSource, NSTableViewDelega
         super.viewDidLoad()
         
         getToDoItems()
-        print(toDoItems.count)
         
         // Do any additional setup after loading the view.
     }
@@ -70,12 +70,37 @@ class ViewController: NSViewController, NSTableViewDataSource, NSTableViewDelega
                 importantCheckBox.state = 0
                 
                 getToDoItems()
-                print(toDoItems.count)
             }
             
         }
         
     }
+    
+    @IBAction func deleteClicked(_ sender: Any) {
+    
+        
+//        Remove item from tableview
+        
+        let selectedToDoItem = toDoItems[tableView.selectedRow]
+        
+        if let context = (NSApplication.shared().delegate as? AppDelegate)?.managedObjectContext {
+            
+            context.delete(selectedToDoItem)
+            
+            //        Remove item from core data
+            
+            (NSApplication.shared().delegate as? AppDelegate)?.saveAction(nil)
+            
+            getToDoItems()
+            
+            deleteButton.isHidden = true
+            
+        }
+        
+        
+        
+    }
+    
     
     // MARK: - TableView Stuff
     
@@ -116,6 +141,9 @@ class ViewController: NSViewController, NSTableViewDataSource, NSTableViewDelega
         return nil
     }
     
+    func tableViewSelectionDidChange(_ notification: Notification) {
+        deleteButton.isHidden = false
+    }
     
 }
 
