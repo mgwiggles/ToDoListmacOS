@@ -10,6 +10,8 @@ import Cocoa
 
 class ViewController: NSViewController {
 
+    @IBOutlet weak var textField: NSTextField!
+    @IBOutlet weak var importantCheckBox: NSButton!
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -20,6 +22,34 @@ class ViewController: NSViewController {
         didSet {
         // Update the view, if already loaded.
         }
+    }
+    
+    @IBAction func addClicked(_ sender: Any) {
+        
+        if textField.stringValue != "" {
+            
+            if let context = (NSApplication.shared().delegate as? AppDelegate)?.managedObjectContext {
+                
+               let toDoItem = ToDoItem(context: context)
+                
+                toDoItem.name = textField.stringValue
+                
+                if importantCheckBox.state == 0 {
+//                    not important
+                    toDoItem.important = false
+                } else {
+//                    important
+                    toDoItem.important = true
+                }
+                
+                (NSApplication.shared().delegate as? AppDelegate)?.saveAction(nil)
+                
+                textField.stringValue = ""
+                importantCheckBox.state = 0
+            }
+            
+        }
+        
     }
 
 

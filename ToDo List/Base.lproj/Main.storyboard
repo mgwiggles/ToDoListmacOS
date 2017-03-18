@@ -804,7 +804,7 @@
                             <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XLb-rc-mo2">
                                 <rect key="frame" x="284" y="168" width="82" height="18"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <buttonCell key="cell" type="check" title="Important" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="qEn-vO-AcT">
+                                <buttonCell key="cell" type="check" title="Important" bezelStyle="regularSquare" imagePosition="left" inset="2" id="qEn-vO-AcT">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
@@ -816,9 +816,16 @@
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
+                                <connections>
+                                    <action selector="addClicked:" target="XfG-lQ-9wD" id="TeO-A3-DIb"/>
+                                </connections>
                             </button>
                         </subviews>
                     </view>
+                    <connections>
+                        <outlet property="importantCheckBox" destination="XLb-rc-mo2" id="H7w-dj-4y0"/>
+                        <outlet property="textField" destination="vsu-ce-wTA" id="xwr-2W-Gxr"/>
+                    </connections>
                 </viewController>
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
